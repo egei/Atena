@@ -9,10 +9,15 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.atena.atenatest.api.FlickrController;
+import com.atena.atenatest.data.FlickrAdapter;
+import com.atena.atenatest.data.FlickrBase;
 import com.atena.atenatest.data.FlickrResult;
+
+import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -23,6 +28,9 @@ public class MainActivity extends AppCompatActivity {
     Button searchButton;
     EditText searchText;
     Context myContext;
+    ListView photoList;
+    ArrayList<FlickrBase> photoData;
+    FlickrAdapter flickrAdapter = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         searchButton = (Button)findViewById(R.id.search_button);
         searchText = (EditText) findViewById(R.id.search_string);
+        photoList = (ListView) findViewById(R.id.photo_list);
         myContext = this;
     }
 
@@ -43,16 +52,20 @@ public class MainActivity extends AppCompatActivity {
                 if (search_value.isEmpty()) {
                     Toast.makeText(myContext,R.string.search_no_value, Toast.LENGTH_SHORT).show();
                 } else {
-                    Log.d("***EGG****", "In Search value not equal");
                     FlickrController flickrController = new FlickrController();
                     flickrController.start();
-                    Log.d("***EGG***", "In about to make call");
                     Call<FlickrResult> call = flickrController.getFlickrResult(search_value);
                     call.enqueue(new Callback<FlickrResult>() {
                         @Override
                         public void onResponse(Call<FlickrResult> call, Response<FlickrResult> response) {
                             int statusCode = response.code();
                             FlickrResult user = response.body();
+                            photoData = user.getFlickArray();
+                            if (flickrAdapter == null) {
+                                flickrAdapter = new FlickrAdapter(myContext, photoData);
+                                photoList.setAdapter(flickrAdapter);
+                            }
+                            flickrAdapter.notifyDataSetChanged();
                             Log.d("***EGG****", "Response:" + user.toString());
                         }
 
@@ -65,6 +78,12 @@ public class MainActivity extends AppCompatActivity {
                      flickrController.getFlickrResult(search_value);
 
                 }
+            }
+        });
+        photoList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
     }

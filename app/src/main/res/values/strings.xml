@@ -4,4 +4,7 @@
     <string name="search_hint">Enter Photo Tag</string>
     <string name="search_button">SEARCH</string>
     <string name="search_no_value">Please enter in value to be searched</string>
+    <string name="list_title">Photo Title</string>
+    <string name="list_height">Photo Height</string>
+    <string name="list_width">Photo Width</string>
 </resources>

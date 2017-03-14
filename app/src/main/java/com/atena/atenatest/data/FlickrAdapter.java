@@ -9,14 +9,16 @@ import android.widget.TextView;
 
 import com.atena.atenatest.R;
 
+import java.util.ArrayList;
+
 /**
  * Created by Eric on 3/13/2017.
  */
 public class FlickrAdapter extends ArrayAdapter<FlickrBase> {
     private final Context context;
-    private final FlickrBase[] flickrBases;
+    private final ArrayList<FlickrBase> flickrBases;
 
-    public FlickrAdapter(Context context, FlickrBase[] resource) {
+    public FlickrAdapter(Context context, ArrayList<FlickrBase> resource) {
         super(context, -1, resource);
         this.context = context;
         flickrBases = resource;
@@ -30,9 +32,9 @@ public class FlickrAdapter extends ArrayAdapter<FlickrBase> {
         TextView title = (TextView) rowView.findViewById(R.id.title);
         TextView width = (TextView) rowView.findViewById(R.id.width);
         TextView height = (TextView) rowView.findViewById(R.id.height);
-        title.setText(flickrBases[position].getTitle());
-        width.setText(flickrBases[position].getFlickrDescription().getWidth());
-        height.setText(flickrBases[position].getFlickrDescription().getHeight());
+        title.setText(flickrBases.get(position).getTitle());
+        width.setText(Integer.toString(flickrBases.get(position).getFlickrDescription().getWidth()));
+        height.setText(Integer.toString(flickrBases.get(position).getFlickrDescription().getHeight()));
         return rowView;
     }
 }

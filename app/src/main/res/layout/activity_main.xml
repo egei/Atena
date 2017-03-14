@@ -42,5 +42,41 @@
         android:text="@string/search_button"
         />
 
+    <LinearLayout
+        android:id="@+id/list_header"
+        android:layout_below="@id/search_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="@string/list_title"
+            />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="@string/list_height"
+            />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="@string/list_width"
+            />
+
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/photo_list"
+        android:layout_below="@id/list_header"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
 
 </RelativeLayout>

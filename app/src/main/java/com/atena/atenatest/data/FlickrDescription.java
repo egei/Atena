@@ -1,5 +1,7 @@
 package com.atena.atenatest.data;
 
+import android.util.Log;
+
 /**
  * Created by Eric on 3/13/2017.
  */
@@ -15,11 +17,14 @@ public class FlickrDescription {
     public FlickrDescription(String staringValue) {
        nonHtmlEscape = staringValue.replace("\\","");
         int heightStartingPoint = nonHtmlEscape.indexOf("height");
-        int heightEndingPoint = nonHtmlEscape.indexOf("\"", heightStartingPoint + 9);
-        height = Integer.getInteger(nonHtmlEscape.substring(heightStartingPoint, heightEndingPoint));
-        int widthStartingPoint = nonHtmlEscape.indexOf("height");
-        int widthEndingPoint = nonHtmlEscape.indexOf("\"", widthStartingPoint + 9);
-        height = Integer.getInteger(nonHtmlEscape.substring(widthStartingPoint, widthEndingPoint));
+        heightStartingPoint = nonHtmlEscape.indexOf("\"", heightStartingPoint); // After the Tag locate "
+        int heightEndingPoint = nonHtmlEscape.indexOf("\"", heightStartingPoint + 1) + 1; // And go to the first character after that
+        String heightString = nonHtmlEscape.substring(heightStartingPoint+1, heightEndingPoint-1);
+        height = Integer.parseInt(heightString);
+        int widthStartingPoint = nonHtmlEscape.indexOf("width");
+        widthStartingPoint = nonHtmlEscape.indexOf("\"", widthStartingPoint);
+        int widthEndingPoint = nonHtmlEscape.indexOf("\"", widthStartingPoint + 1) + 1;
+        width = Integer.parseInt(nonHtmlEscape.substring(widthStartingPoint+1, widthEndingPoint-1));
 
    }
 
